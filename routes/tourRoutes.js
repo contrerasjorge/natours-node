@@ -7,16 +7,19 @@ const {
   getTour,
   updateTour,
   deleteTour,
-  checkID,
-  checkBody
+  aliasTopTours,
+  getTourStats,
+  getMonthlyPlan
 } = require('./../controllers/tourController');
 
-tourRouter.param('id', checkID);
+tourRouter.route('/top-5-cheap').get(aliasTopTours, getAllTours);
+tourRouter.route('/tour-stats').get(getTourStats);
+tourRouter.route('/monthy-plan/:year').get(getMonthlyPlan);
 
 tourRouter
   .route('/')
   .get(getAllTours)
-  .post(checkBody, createTour);
+  .post(createTour);
 
 tourRouter
   .route('/:id')
