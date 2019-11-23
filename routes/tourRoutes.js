@@ -14,13 +14,15 @@ const {
 
 const authController = require('./../controllers/authController');
 
-const reviewController = require('./../controllers/reviewController');
+const reviewRouter = require('./../routes/reviewRoutes');
 
 const { protect, restrictTo } = require('./../controllers/authController');
 
 tourRouter.route('/top-5-cheap').get(aliasTopTours, getAllTours);
 tourRouter.route('/tour-stats').get(getTourStats);
 tourRouter.route('/monthy-plan/:year').get(getMonthlyPlan);
+
+tourRouter.use('/:tourId/reviews', reviewRouter);
 
 tourRouter
   .route('/')
@@ -33,12 +35,12 @@ tourRouter
   .patch(updateTour)
   .delete(protect, restrictTo('admin', 'lead-guide'), deleteTour);
 
-tourRouter
-  .route('/:tourId/reviews')
-  .post(
-    authController.protect,
-    authController.restrictTo('users'),
-    reviewController.createReview
-  );
+// tourRouter
+//   .route('/:tourId/reviews')
+//   .post(
+//     authController.protect,
+//     authController.restrictTo('users'),
+//     reviewController.createReview
+//   );
 
 module.exports = tourRouter;
