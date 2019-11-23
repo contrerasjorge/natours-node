@@ -20,27 +20,21 @@ const { protect, restrictTo } = require('./../controllers/authController');
 
 tourRouter.route('/top-5-cheap').get(aliasTopTours, getAllTours);
 tourRouter.route('/tour-stats').get(getTourStats);
-tourRouter.route('/monthy-plan/:year').get(getMonthlyPlan);
+tourRouter
+  .route('/monthy-plan/:year')
+  .get(protect, restrictTo('admin', 'lead-guide', 'guide'), getMonthlyPlan);
 
 tourRouter.use('/:tourId/reviews', reviewRouter);
 
 tourRouter
   .route('/')
-  .get(protect, getAllTours)
-  .post(createTour);
+  .get(getAllTours)
+  .post(protect, restrictTo('admin', 'lead-guide'), createTour);
 
 tourRouter
   .route('/:id')
   .get(getTour)
-  .patch(updateTour)
+  .patch(protect, restrictTo('admin', 'lead-guide'), updateTour)
   .delete(protect, restrictTo('admin', 'lead-guide'), deleteTour);
-
-// tourRouter
-//   .route('/:tourId/reviews')
-//   .post(
-//     authController.protect,
-//     authController.restrictTo('users'),
-//     reviewController.createReview
-//   );
 
 module.exports = tourRouter;
