@@ -19,7 +19,7 @@ block content
 
     .heading-box
       h1.heading-primary
-        span= tour.name
+        span= `${tour.name} tour`
       .heading-box__group
         .heading-box__detail
           svg.heading-box__icon
@@ -40,7 +40,7 @@ block content
           +overviewBox('Next date', date, 'calendar')
           +overviewBox('Difficulty', tour.difficulty, 'trending-up')
           +overviewBox('Participants', `${tour.maxGroupSize} people`, 'user')
-          +overviewBox('Rating', `${tour.ratingsAverage} / 5`, 'start')
+          +overviewBox('Rating', `${tour.ratingsAverage} / 5`, 'star')
           
           
 
@@ -51,10 +51,10 @@ block content
             .overview-box__detail
               img.overview-box__img(src=`/img/users/${guide.photo}`, alt=`${guide.name}`)
 
-              - if (guide.role === 'lead-guide') 
+              - if (guide.role === 'lead-guide')
                 span.overview-box__label Lead guide
-              - if (guide.role === 'guide') 
-                span.overview-box__text Tour guide
+              - if (guide.role === 'guide')
+                span.overview-box__label Tour guide
               span.overview-box__text= guide.name
 
     .description-box
@@ -66,7 +66,7 @@ block content
   section.section-pictures
     each img, i in tour.images
       .picture-box
-        img.picture-box__img(src='/img/tours/${img}', alt='The Park Camper Tour ${i + 1}', class=`picture-box__img--${i + 1}`)
+        img.picture-box__img(src=`/img/tours/${img}`, alt='The Park Camper Tour ${i + 1}', class=`picture-box__img--${i + 1}`)
 
   section.section-map
     #map(data-locations=`${JSON.stringify(tour.location)}`)
