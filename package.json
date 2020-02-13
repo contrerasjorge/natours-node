@@ -1,4 +1,10 @@
 {
+  "name": "natours-jei",
+  "version": "1.0.0",
+  "description": "It's an app",
+  "main": "app.js",
+  "author": "Jorge Contreras",
+  "license": "ISC",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
